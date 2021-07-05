@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../../styles/Home.module.css'
 import { getAll, getBySlug } from "../../services/articles";
 import ReactMarkdown from 'react-markdown'
