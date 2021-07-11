@@ -1,17 +1,13 @@
+import Link from 'next/link'
+
 export default function SiteHeader() {
   return (
-    <header class="site-header">
-      <a class="logo" href="/">
-        <span>#BLM</span>Resources
-      </a>
+    <header className="site-header">
+      <Link href="/">
+        <a className="logo"><span>#BLM</span>Resources</a>
+      </Link>
 
-      <nav class="nav">
-        <ul class="nav-list">
-          <li>
-            <a href="#">Link</a>
-          </li>
-        </ul>
-      </nav>
+      <nav className="nav"></nav>
     </header>
   )
 }
