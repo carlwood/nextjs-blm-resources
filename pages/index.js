@@ -17,7 +17,6 @@ export async function getStaticProps() {
 }
 
 export default function Home({ articles, categories }) {
-  console.log(articles)
   return (
     <>
       <DocumentHead title="Home" />
@@ -25,7 +24,7 @@ export default function Home({ articles, categories }) {
       <main>
         <div className="container">
           <h1 className="page-heading">From "neutral" to antiracist</h1>
-          <p class="intro-text">To be neutral in situations of injustice is to side with the oppressor. We're working to become actively <em>antiracist</em>. This site is a repository of resources we've found helpful, and we've made it publicly accessible in case others find it useful too.</p>
+          <p className="intro-text">To be neutral in situations of injustice is to side with the oppressor. We're working to become actively <em>antiracist</em>. This site is a repository of resources we've found helpful, and we've made it publicly accessible in case others find it useful too.</p>
           <ul className="posts">
             {articles.map((article) => (
               <li key={article.id}>
