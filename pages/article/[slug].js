@@ -1,8 +1,9 @@
 import DocumentHead from '../../components/head'
 import SiteHeader from '../../components/siteHeader'
-import styles from '../../styles/Home.module.css'
 import { getAll, getBySlug } from "../../services/articles";
+import { getAllCategories } from "../../services/categories";
 import ReactMarkdown from 'react-markdown'
+
 
 export async function getStaticPaths() {
   const articles = await getAll();
@@ -16,19 +17,21 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const articles = await getBySlug(params.slug);
-  return { props: { articles } };
+  const categories = await getAllCategories();
+
+  return {
+    props: {
+      articles,
+      categories
+    }
+  };
 }
 
-export default function Article({ articles }) {
-  // const { data, loading, error } = useQuery(ARTICLES_QUERY);
-
-  // if (loading) return "Loading...";
-  // if (error) return <pre>NOOO: {error.message}</pre>
-
+export default function Article({ articles, categories }) {
   return (
     <>
       <DocumentHead />
-      <SiteHeader />
+      <SiteHeader categories={categories} />
       <main>
         <div className="container">
           <article className="article">
