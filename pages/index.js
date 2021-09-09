@@ -1,30 +1,37 @@
 import DocumentHead from '../components/head'
 import SiteHeader from '../components/siteHeader'
-import styles from '../styles/Home.module.css'
 import { getAll } from "../services/articles";
 import { getAllCategories } from "../services/categories";
+import { getHomepageContent } from "../services/home";
+import ReactMarkdown from 'react-markdown'
 
 export async function getStaticProps() {
   const articles = await getAll();
   const categories = await getAllCategories();
+  const homepage = await getHomepageContent();
 
   return {
     props: {
       articles,
-      categories
+      categories,
+      homepage
     },
   };
 }
 
-export default function Home({ articles, categories }) {
+export default function Home({ articles, categories, homepage }) {
   return (
     <>
       <DocumentHead title="Home" />
       <SiteHeader categories={categories} />
       <main>
         <div className="container">
-          <h1 className="page-heading">From "neutral" to antiracist</h1>
-          <p className="intro-text">To be neutral in situations of injustice is to side with the oppressor. We're working to become actively <em>antiracist</em>. This site is a repository of resources we've found helpful, and we've made it publicly accessible in case others find it useful too.</p>
+          <h1 className="page-heading">{homepage.hero.title}</h1>
+          <div className="intro-text">
+            <ReactMarkdown>
+              {homepage.hero.subtitle}
+            </ReactMarkdown>
+          </div>
           <ul className="posts">
             {articles.map((article) => (
               <li key={article.id}>

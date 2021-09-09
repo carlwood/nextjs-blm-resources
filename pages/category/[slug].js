@@ -1,7 +1,6 @@
 import DocumentHead from '../../components/head'
 import SiteHeader from '../../components/siteHeader'
 import { getAllCategories, getCategoryArticles } from "../../services/categories";
-import ReactMarkdown from 'react-markdown'
 
 export async function getStaticPaths() {
   const categories = await getAllCategories();
@@ -29,7 +28,7 @@ export async function getStaticProps({ params }) {
 export default function Category({ categoryArticles, categories }) {
   return (
     <>
-      <DocumentHead />
+      <DocumentHead title={categoryArticles[0].name} />
       <SiteHeader categories={categories} />
       <main>
         <div className="container">
