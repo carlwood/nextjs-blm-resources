@@ -1,7 +1,9 @@
 import DocumentHead from '../../components/head'
 import SiteHeader from '../../components/siteHeader'
-import { getAll, getBySlug } from "../../services/articles";
-import { getAllCategories } from "../../services/categories";
+import SiteFooter from '../../components/siteFooter'
+import { getAll, getBySlug } from "../../services/articles"
+import { getAllCategories } from "../../services/categories"
+import { getGlobalContent } from "../../services/global"
 import ReactMarkdown from 'react-markdown'
 
 export async function getStaticPaths() {
@@ -17,16 +19,18 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const articles = await getBySlug(params.slug);
   const categories = await getAllCategories();
+  const global = await getGlobalContent();
 
   return {
     props: {
       articles,
-      categories
+      categories,
+      global
     }
   };
 }
 
-export default function Article({ articles, categories }) {
+export default function Article({ articles, categories, global }) {
   return (
     <>
       <DocumentHead title={articles[0].title} />
@@ -47,6 +51,7 @@ export default function Article({ articles, categories }) {
           </article>
         </div>
       </main>
+      <SiteFooter content={global} />
     </>
   )
 }

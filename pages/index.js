@@ -1,25 +1,29 @@
 import DocumentHead from '../components/head'
 import SiteHeader from '../components/siteHeader'
-import { getAll } from "../services/articles";
-import { getAllCategories } from "../services/categories";
-import { getHomepageContent } from "../services/home";
+import SiteFooter from '../components/siteFooter'
+import { getAll } from "../services/articles"
+import { getAllCategories } from "../services/categories"
+import { getHomepageContent } from "../services/home"
+import { getGlobalContent } from "../services/global"
 import ReactMarkdown from 'react-markdown'
 
 export async function getStaticProps() {
   const articles = await getAll();
   const categories = await getAllCategories();
   const homepage = await getHomepageContent();
+  const global = await getGlobalContent();
 
   return {
     props: {
       articles,
       categories,
-      homepage
+      homepage,
+      global
     },
   };
 }
 
-export default function Home({ articles, categories, homepage }) {
+export default function Home({ articles, categories, homepage, global }) {
   return (
     <>
       <DocumentHead title="Home" />
@@ -43,6 +47,7 @@ export default function Home({ articles, categories, homepage }) {
           </ul>
         </div>
       </main>
+      <SiteFooter content={global} />
     </>
   )
 }

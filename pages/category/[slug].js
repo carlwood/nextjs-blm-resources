@@ -1,6 +1,8 @@
 import DocumentHead from '../../components/head'
 import SiteHeader from '../../components/siteHeader'
+import SiteFooter from '../../components/siteFooter'
 import { getAllCategories, getCategoryArticles } from "../../services/categories";
+import { getGlobalContent } from "../../services/global"
 
 export async function getStaticPaths() {
   const categories = await getAllCategories();
@@ -16,16 +18,18 @@ export async function getStaticProps({ params }) {
   // const articles = await getBySlug(params.slug);
   const categoryArticles = await getCategoryArticles(params.slug);
   const categories = await getAllCategories();
+  const global = await getGlobalContent();
 
   return {
     props: {
       categoryArticles,
-      categories
+      categories,
+      global
     }
   };
 }
 
-export default function Category({ categoryArticles, categories }) {
+export default function Category({ categoryArticles, categories, global }) {
   return (
     <>
       <DocumentHead title={categoryArticles[0].name} />
@@ -44,6 +48,7 @@ export default function Category({ categoryArticles, categories }) {
           </ul>
         </div>
       </main>
+      <SiteFooter content={global} />
     </>
   )
 }
